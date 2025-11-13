@@ -1,53 +1,82 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Equilibrado brand colors - Modern, professional color scheme
+ * Inspired by the olive green and beige tones that promote calm and balance
  */
 
-import { Platform } from 'react-native';
+import { Platform } from "react-native";
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// Brand Colors
+const oliveGreen = "#4A5F4C";
+const softOlive = "#5C7A5E";
+const warmBeige = "#F5F3ED";
+const creamWhite = "#FDFCF8";
+const darkOlive = "#3A4A3C";
+const accentTeal = "#5A8B8A";
+const softGray = "#8B9B8D";
+const lightGray = "#E8EBE6";
+
+const tintColorLight = oliveGreen;
+const tintColorDark = warmBeige;
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
+    text: "#2C3A2D",
+    background: creamWhite,
     tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
+    icon: softGray,
+    tabIconDefault: softGray,
     tabIconSelected: tintColorLight,
+    primary: oliveGreen,
+    secondary: warmBeige,
+    accent: accentTeal,
+    card: "#FFFFFF",
+    border: lightGray,
+    success: "#6B9F71",
+    warning: "#D4A574",
+    error: "#C07A7A",
+    textSecondary: "#6B7869",
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
+    text: warmBeige,
+    background: "#1F2821",
     tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
+    icon: softGray,
+    tabIconDefault: softGray,
     tabIconSelected: tintColorDark,
+    primary: softOlive,
+    secondary: darkOlive,
+    accent: accentTeal,
+    card: "#2A3529",
+    border: "#3F4F41",
+    success: "#6B9F71",
+    warning: "#D4A574",
+    error: "#C07A7A",
+    textSecondary: "#A8B5A6",
   },
 };
 
 export const Fonts = Platform.select({
   ios: {
     /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
+    sans: "system-ui",
     /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
+    serif: "ui-serif",
     /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
+    rounded: "ui-rounded",
     /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
+    mono: "ui-monospace",
   },
   default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
+    sans: "normal",
+    serif: "serif",
+    rounded: "normal",
+    mono: "monospace",
   },
   web: {
     sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
     serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
+    rounded:
+      "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
     mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
   },
 });

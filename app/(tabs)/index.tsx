@@ -1,98 +1,373 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { StyleSheet, ScrollView, View } from "react-native";
+import { ThemedText } from "@/components/themed-text";
+import { ThemedView } from "@/components/themed-view";
+import { Colors } from "@/constants/theme";
+import { useColorScheme } from "@/hooks/use-color-scheme";
+import { IconSymbol } from "@/components/ui/icon-symbol";
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme ?? "light"];
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
+  // Mock user data - in production this would come from your backend
+  const userData = {
+    name: "Juan",
+    exercisesCompleted: 24,
+    currentStreak: 7,
+    longestStreak: 15,
+    weeklyGoal: 5,
+    weeklyProgress: 4,
+    totalMinutes: 180,
+    caloriesBurned: 520,
+  };
+
+  return (
+    <ScrollView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
+      {/* Header with greeting */}
+      <ThemedView style={styles.header}>
+        <ThemedText style={styles.greeting}>Hola, {userData.name}</ThemedText>
+        <ThemedText
+          style={[styles.subGreeting, { color: colors.textSecondary }]}
+        >
+          ¡Mantengamos el equilibrio hoy!
         </ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+
+      {/* Streak Card */}
+      <ThemedView
+        style={[styles.streakCard, { backgroundColor: colors.primary }]}
+      >
+        <View style={styles.streakContent}>
+          <IconSymbol name="flame.fill" size={32} color={colors.warning} />
+          <View style={styles.streakText}>
+            <ThemedText style={[styles.streakNumber, { color: colors.card }]}>
+              {userData.currentStreak} días
+            </ThemedText>
+            <ThemedText
+              style={[styles.streakLabel, { color: colors.secondary }]}
+            >
+              Racha actual
+            </ThemedText>
+          </View>
+        </View>
+        <ThemedText style={[styles.streakRecord, { color: colors.secondary }]}>
+          Mejor racha: {userData.longestStreak} días
         </ThemedText>
       </ThemedView>
-    </ParallaxScrollView>
+
+      {/* Quick Stats Grid */}
+      <View style={styles.statsGrid}>
+        {/* Exercises Completed */}
+        <ThemedView
+          style={[
+            styles.statCard,
+            { backgroundColor: colors.card, borderColor: colors.border },
+          ]}
+        >
+          <IconSymbol name="figure.walk" size={28} color={colors.primary} />
+          <ThemedText style={styles.statNumber}>
+            {userData.exercisesCompleted}
+          </ThemedText>
+          <ThemedText
+            style={[styles.statLabel, { color: colors.textSecondary }]}
+          >
+            Ejercicios
+          </ThemedText>
+        </ThemedView>
+
+        {/* Total Minutes */}
+        <ThemedView
+          style={[
+            styles.statCard,
+            { backgroundColor: colors.card, borderColor: colors.border },
+          ]}
+        >
+          <IconSymbol name="clock.fill" size={28} color={colors.accent} />
+          <ThemedText style={styles.statNumber}>
+            {userData.totalMinutes}
+          </ThemedText>
+          <ThemedText
+            style={[styles.statLabel, { color: colors.textSecondary }]}
+          >
+            Minutos
+          </ThemedText>
+        </ThemedView>
+
+        {/* Calories */}
+        <ThemedView
+          style={[
+            styles.statCard,
+            { backgroundColor: colors.card, borderColor: colors.border },
+          ]}
+        >
+          <IconSymbol name="bolt.fill" size={28} color={colors.success} />
+          <ThemedText style={styles.statNumber}>
+            {userData.caloriesBurned}
+          </ThemedText>
+          <ThemedText
+            style={[styles.statLabel, { color: colors.textSecondary }]}
+          >
+            Calorías
+          </ThemedText>
+        </ThemedView>
+      </View>
+
+      {/* Weekly Goal Progress */}
+      <ThemedView
+        style={[
+          styles.goalCard,
+          { backgroundColor: colors.card, borderColor: colors.border },
+        ]}
+      >
+        <View style={styles.goalHeader}>
+          <ThemedText style={styles.goalTitle}>Meta Semanal</ThemedText>
+          <ThemedText style={[styles.goalProgress, { color: colors.primary }]}>
+            {userData.weeklyProgress}/{userData.weeklyGoal}
+          </ThemedText>
+        </View>
+
+        <View
+          style={[
+            styles.progressBarBackground,
+            { backgroundColor: colors.border },
+          ]}
+        >
+          <View
+            style={[
+              styles.progressBarFill,
+              {
+                backgroundColor: colors.primary,
+                width: `${
+                  (userData.weeklyProgress / userData.weeklyGoal) * 100
+                }%`,
+              },
+            ]}
+          />
+        </View>
+
+        <ThemedText
+          style={[styles.goalSubtext, { color: colors.textSecondary }]}
+        >
+          {userData.weeklyGoal - userData.weeklyProgress} sesiones más para
+          alcanzar tu meta
+        </ThemedText>
+      </ThemedView>
+
+      {/* Today's Activity Summary */}
+      <ThemedView
+        style={[
+          styles.activityCard,
+          { backgroundColor: colors.card, borderColor: colors.border },
+        ]}
+      >
+        <ThemedText style={styles.sectionTitle}>Actividad de Hoy</ThemedText>
+
+        <View style={styles.activityItem}>
+          <View
+            style={[
+              styles.activityIcon,
+              { backgroundColor: colors.success + "20" },
+            ]}
+          >
+            <IconSymbol
+              name="checkmark.circle.fill"
+              size={24}
+              color={colors.success}
+            />
+          </View>
+          <View style={styles.activityInfo}>
+            <ThemedText style={styles.activityTitle}>
+              Ejercicios de Equilibrio
+            </ThemedText>
+            <ThemedText
+              style={[styles.activityTime, { color: colors.textSecondary }]}
+            >
+              Completado - 8:30 AM
+            </ThemedText>
+          </View>
+        </View>
+
+        <View style={styles.activityItem}>
+          <View
+            style={[
+              styles.activityIcon,
+              { backgroundColor: colors.success + "20" },
+            ]}
+          >
+            <IconSymbol
+              name="checkmark.circle.fill"
+              size={24}
+              color={colors.success}
+            />
+          </View>
+          <View style={styles.activityInfo}>
+            <ThemedText style={styles.activityTitle}>
+              Reflejos Rápidos
+            </ThemedText>
+            <ThemedText
+              style={[styles.activityTime, { color: colors.textSecondary }]}
+            >
+              Completado - 2:15 PM
+            </ThemedText>
+          </View>
+        </View>
+
+        <View style={styles.activityItem}>
+          <View
+            style={[styles.activityIcon, { backgroundColor: colors.border }]}
+          >
+            <IconSymbol name="circle" size={24} color={colors.textSecondary} />
+          </View>
+          <View style={styles.activityInfo}>
+            <ThemedText style={styles.activityTitle}>
+              Caminata Vespertina
+            </ThemedText>
+            <ThemedText
+              style={[styles.activityTime, { color: colors.textSecondary }]}
+            >
+              Pendiente - 5:00 PM
+            </ThemedText>
+          </View>
+        </View>
+      </ThemedView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    flex: 1,
   },
-  stepContainer: {
-    gap: 8,
+  header: {
+    paddingHorizontal: 20,
+    paddingTop: 60,
+    paddingBottom: 20,
+  },
+  greeting: {
+    fontSize: 32,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  subGreeting: {
+    fontSize: 16,
+  },
+  streakCard: {
+    marginHorizontal: 20,
+    marginBottom: 20,
+    padding: 20,
+    borderRadius: 16,
+  },
+  streakContent: {
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 8,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  streakText: {
+    marginLeft: 12,
+  },
+  streakNumber: {
+    fontSize: 28,
+    fontWeight: "bold",
+  },
+  streakLabel: {
+    fontSize: 14,
+  },
+  streakRecord: {
+    fontSize: 12,
+    marginTop: 4,
+  },
+  statsGrid: {
+    flexDirection: "row",
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    gap: 12,
+  },
+  statCard: {
+    flex: 1,
+    padding: 16,
+    borderRadius: 12,
+    borderWidth: 1,
+    alignItems: "center",
+  },
+  statNumber: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginTop: 8,
+  },
+  statLabel: {
+    fontSize: 12,
+    marginTop: 4,
+  },
+  goalCard: {
+    marginHorizontal: 20,
+    marginBottom: 20,
+    padding: 20,
+    borderRadius: 12,
+    borderWidth: 1,
+  },
+  goalHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  goalTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  goalProgress: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  progressBarBackground: {
+    height: 8,
+    borderRadius: 4,
+    overflow: "hidden",
+    marginBottom: 8,
+  },
+  progressBarFill: {
+    height: "100%",
+    borderRadius: 4,
+  },
+  goalSubtext: {
+    fontSize: 12,
+  },
+  activityCard: {
+    marginHorizontal: 20,
+    marginBottom: 30,
+    padding: 20,
+    borderRadius: 12,
+    borderWidth: 1,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 16,
+  },
+  activityItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+  activityIcon: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  activityInfo: {
+    marginLeft: 12,
+    flex: 1,
+  },
+  activityTitle: {
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  activityTime: {
+    fontSize: 13,
+    marginTop: 2,
   },
 });

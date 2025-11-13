@@ -249,9 +249,13 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
     marginBottom: 4,
+    lineHeight: 42,
+    includeFontPadding: false,
   },
   subGreeting: {
     fontSize: 16,
+    lineHeight: 24,
+    includeFontPadding: false,
   },
   streakCard: {
     marginHorizontal: 20,
@@ -270,13 +274,19 @@ const styles = StyleSheet.create({
   streakNumber: {
     fontSize: 28,
     fontWeight: "bold",
+    lineHeight: 36,
+    includeFontPadding: false,
   },
   streakLabel: {
     fontSize: 14,
+    lineHeight: 20,
+    includeFontPadding: false,
   },
   streakRecord: {
     fontSize: 12,
     marginTop: 4,
+    lineHeight: 18,
+    includeFontPadding: false,
   },
   statsGrid: {
     flexDirection: "row",
@@ -295,10 +305,14 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginTop: 8,
+    lineHeight: 32,
+    includeFontPadding: false,
   },
   statLabel: {
     fontSize: 12,
     marginTop: 4,
+    lineHeight: 18,
+    includeFontPadding: false,
   },
   goalCard: {
     marginHorizontal: 20,
@@ -316,10 +330,14 @@ const styles = StyleSheet.create({
   goalTitle: {
     fontSize: 18,
     fontWeight: "600",
+    lineHeight: 26,
+    includeFontPadding: false,
   },
   goalProgress: {
     fontSize: 18,
     fontWeight: "bold",
+    lineHeight: 26,
+    includeFontPadding: false,
   },
   progressBarBackground: {
     height: 8,
@@ -333,6 +351,8 @@ const styles = StyleSheet.create({
   },
   goalSubtext: {
     fontSize: 12,
+    lineHeight: 18,
+    includeFontPadding: false,
   },
   activityCard: {
     marginHorizontal: 20,
@@ -345,6 +365,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "600",
     marginBottom: 16,
+    lineHeight: 26,
+    includeFontPadding: false,
   },
   activityItem: {
     flexDirection: "row",
@@ -365,9 +387,13 @@ const styles = StyleSheet.create({
   activityTitle: {
     fontSize: 16,
     fontWeight: "500",
+    lineHeight: 22,
+    includeFontPadding: false,
   },
   activityTime: {
     fontSize: 13,
     marginTop: 2,
+    lineHeight: 18,
+    includeFontPadding: false,
   },
 });
